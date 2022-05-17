@@ -1,0 +1,79 @@
+typescriptProgram ->  secao_importacao corpo
+
+secao_importacao -> IMPORT ABRECHAVE IDENTIFICADOR FECHACHAVE STRING_LITERAL
+
+
+corpo-> definicao_classe | comando | definicao_classe corpo | comando corpo
+
+definicao_classe -> CLASS IDENTIFICADOR ABRECHAVE corpo_classe FECHACHAVE
+
+corpo_classe -> definicao_variavel | definicao_funcao | definicao_variavel corpo_classe | definicao_funcao corpo_classe
+
+definicao_variavel -> IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA
+                     | IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA IGUAL expressao
+ 
+
+definicao_funcao -> ID ABREPAREN argumentos FECHAPAREN ABRECHAVE comandos FECHA_CHAVE 
+
+argumentos ->  ID DOISPONTOS TIPO | ID DOISPONTOS TIPO VIRGULA argumentos 
+
+comandos -> comando | comando comandos
+
+comando -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES comando ELSE ABRECHAVES comando FECHACHAVES comando
+	       | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comandos 
+	       | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE ABRECHAVES  comando FECHACHAVES
+	       | IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando 
+	       | atribuicao | comando_for | comando_while | chamada_de_funcao | comando_break | comando_return | comando_namespace
+	       | comando_var | comando_let | comando_this | comando_get | comando_set
+
+comando_2 -> IF ABREPARENTESE expressao FECHARPARENTESE comandos
+		| IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
+		| IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comando_2 
+		| IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando_2 
+
+comando_for ->	for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES| 
+		for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
+
+
+chamada_de_funcao -> ID ABREPARENTESE argumentos FECHARPARENTESE 
+
+
+expressao -> expressao1
+
+expressao1 -> expressao decremento expressao2 | expressao incremento expressao2 | expressao2
+
+expressao2 -> expressao2 VEZES expressao3 | expressao2 DIVISÃO expressao3 | expressao3
+
+expressao3 -> expressao3 MAIS expressao4 | expressao3 MENOS expressao4 | expressao4 
+
+expressao4 -> expressao4 MENORIGUAL expressao5 | expressao4 MAIORIGUAL expressao5 | expressao4 MENOR expressao5 | expressao4 MAIOR expressao5 | expressao5 
+
+expressao5 ->  expressao5 DIFERENTE expressao6 | expressao5 IGUAL expressao6 | expressao5 IGUALVALORETIPO expressao6 | expressao5 IGUALVALOROUTIPO expressao6 | expressao6 
+
+expressao6 ->  ID IGUAL expressao7 | expressao7
+
+expressao7 ->   NUMERO | ID | STRING_ASPAS_SIMPLES | STRING_ASPAS_DUPLA
+
+comando_return -> RETURN expressao
+
+comando_while -> WHILE ABREPARENTESE expressao FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
+
+comando_break -> BREAK
+
+comando_var -> VAR ID
+
+comando_this -> THIS PONTO ID
+
+chamada_de_funcao -> ID ABREPARENTESE argumentos FECHARPARENTESE  
+
+comando_let -> LET ID
+
+comando_set -> SET ID ABREPARENTESE argumentos  FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
+
+comando_get -> GET ID ABREPARENTESE FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
+
+comando_namespace -> NAMESPACE ID ABRECHAVES comando FECHACHAVES
+
+
+
+

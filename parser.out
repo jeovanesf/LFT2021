@@ -1,79 +1,251 @@
-typescriptProgram ->  secao_importacao corpo
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-secao_importacao -> IMPORT ABRECHAVE IDENTIFICADOR FECHACHAVE STRING_LITERAL
+Unused terminals:
 
+    ABRECONCHETES
+    ABREPARENTESES
+    BARRA
+    BOOLEAN
+    CIRCUNFLEXO
+    COMERCIAL
+    COMPARACAO
+    CONSTRUTOR
+    DECREMENTO
+    ECOMERCIAL
+    EXPONENCIACAO
+    FECHACONCHETES
+    FECHAPARENTESES
+    FOR
+    FROM
+    FUNCTION
+    IN
+    INCREMENTO
+    INSTANCEOF
+    IS
+    MODULE
+    MULTIPLICACAO
+    NEGACAO
+    NEW
+    NULL
+    NUMBER
+    OF
+    OU
+    PACKAGE
+    PONTOVIRGULA
+    PORCENTO
+    PUBLIC
+    SOMA
+    STATIC
+    STRING
+    TIU
+    TRUE
+    TYPE
+    TYPEOF
+    VOID
 
-corpo-> definicao_classe | comando | definicao_classe corpo | comando corpo
+Grammar
 
-definicao_classe -> CLASS IDENTIFICADOR ABRECHAVE corpo_classe FECHACHAVE
+Rule 0     S' -> programa
+Rule 1     programa -> secao_importacao corpo
+Rule 2     secao_importacao -> IMPORT ABRECHAVES IDENTIFICADOR FECHACHAVES STRING_ASPAS_DUPLAS
+Rule 3     secao_importacao -> IMPORT ABRECHAVES IDENTIFICADOR FECHACHAVES STRING_ASPAS_SIMPLES
+Rule 4     corpo -> definicao_classe
+Rule 5     corpo -> comando
+Rule 6     corpo -> definicao_classe corpo
+Rule 7     corpo -> comando corpo
+Rule 8     definicao_classe -> CLASS IDENTIFICADOR ABRECHAVES corpo_classe FECHACHAVES
+Rule 9     corpo_classe -> definicao_variavel
+Rule 10    corpo_classe -> definicao_funcao
+Rule 11    corpo_classe -> definicao_variavel corpo_classe
+Rule 12    corpo_classe -> definicao_funcao corpo_classe
+Rule 13    definicao_variavel -> IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA
+Rule 14    definicao_variavel -> IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA IGUAL expressao
+Rule 15    definicao_funcao -> IDENTIFICADOR ABREPAREN argumentos FECHAPAREN ABRECHAVES comandos FECHA_CHAVE
+Rule 16    argumentos -> IDENTIFICADOR DOISPONTOS TIPO
+Rule 17    argumentos -> IDENTIFICADOR DOISPONTOS TIPO VIRGULA argumentos
+Rule 18    comandos -> comando
+Rule 19    comandos -> comando comandos
+Rule 20    comando -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES comando ELSE ABRECHAVES comando FECHACHAVES comando
+Rule 21    comando -> IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comandos
+Rule 22    comando -> IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE ABRECHAVES comando FECHACHAVES
+Rule 23    comando -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando
+Rule 24    comando -> atribuicao
+Rule 25    comando -> comando_for
+Rule 26    comando -> comando_while
+Rule 27    comando -> chamada_de_funcao
+Rule 28    comando -> comando_break
+Rule 29    comando -> comando_return
+Rule 30    comando -> comando_namespace
+Rule 31    comando -> comando_var
+Rule 32    comando -> comando_let
+Rule 33    comando -> comando_this
+Rule 34    comando -> comando_get
+Rule 35    comando -> comando_set
+Rule 36    comando2 -> IF ABREPARENTESE expressao FECHARPARENTESE comandos
+Rule 37    comando2 -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
+Rule 38    comando2 -> IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comando2
+Rule 39    comando2 -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando2
+Rule 40    comando_for -> for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
+Rule 41    chamada_de_funcao -> IDENTIFICADOR ABREPARENTESE argumentos FECHARPARENTESE
+Rule 42    expressao -> expressao1
+Rule 43    expressao1 -> expressao decremento expressao2
+Rule 44    expressao1 -> expressao incremento expressao2
+Rule 45    expressao1 -> expressao2
+Rule 46    expressao2 -> expressao2 VEZES expressao3
+Rule 47    expressao2 -> expressao2 DIVISAO expressao3
+Rule 48    expressao2 -> expressao3
+Rule 49    expressao3 -> expressao3 MAIS expressao4
+Rule 50    expressao3 -> expressao3 MENOS expressao4
+Rule 51    expressao3 -> expressao4
+Rule 52    expressao4 -> expressao4 MENORIGUAL expressao5
+Rule 53    expressao4 -> expressao4 MAIORIGUAL expressao5
+Rule 54    expressao4 -> expressao4 MENOR expressao5
+Rule 55    expressao4 -> expressao4 MAIOR expressao5
+Rule 56    expressao4 -> expressao5
+Rule 57    expressao5 -> expressao5 DIFERENTE expressao6
+Rule 58    expressao5 -> expressao5 IGUAL expressao6
+Rule 59    expressao5 -> expressao5 IGUALVALORETIPO expressao6
+Rule 60    expressao5 -> expressao5 IGUALVALOROUTIPO expressao6
+Rule 61    expressao5 -> expressao6
+Rule 62    expressao7 -> IDENTIFICADOR IGUAL expressao7
+Rule 63    expressao7 -> expressao7
+Rule 64    expressao7 -> NUMERO
+Rule 65    expressao7 -> IDENTIFICADOR
+Rule 66    expressao7 -> STRING_ASPAS_SIMPLES
+Rule 67    expressao7 -> STRING_ASPAS_DUPLA
+Rule 68    comando_return -> RETURN expressao
+Rule 69    comando_while -> WHILE ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES
+Rule 70    comando_break -> BREAK
+Rule 71    comando_var -> VAR IDENTIFICADOR
+Rule 72    comando_this -> THIS PONTO IDENTIFICADOR
+Rule 73    comando_let -> LET IDENTIFICADOR
+Rule 74    comando_set -> SET IDENTIFICADOR ABREPARENTESE argumentos FECHARPARENTESE ABRECHAVES comando FECHACHAVES
+Rule 75    comando_get -> GET IDENTIFICADOR ABREPARENTESE FECHARPARENTESE ABRECHAVES comando FECHACHAVES
+Rule 76    comando_namespace -> NAMESPACE IDENTIFICADOR ABRECHAVES comando FECHACHAVES
 
-corpo_classe -> definicao_variavel | definicao_funcao | definicao_variavel corpo_classe | definicao_funcao corpo_classe
+Terminals, with rules where they appear
 
-definicao_variavel -> IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA
-                     | IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA IGUAL expressao
- 
+ABRECHAVES           : 2 3 8 15 20 20 22 23 37 39 40 69 74 75 76
+ABRECONCHETES        : 
+ABREPARENTESES       : 
+BARRA                : 
+BOOLEAN              : 
+BREAK                : 70
+CIRCUNFLEXO          : 
+CLASS                : 8
+COMERCIAL            : 
+COMPARACAO           : 
+CONSTRUTOR           : 
+DECREMENTO           : 
+DIFERENTE            : 57
+DIVISAO              : 47
+ECOMERCIAL           : 
+ELSE                 : 20 21 22 23 38 39
+EXPONENCIACAO        : 
+FECHACHAVES          : 2 3 8 20 20 22 23 37 39 40 69 74 75 76
+FECHACONCHETES       : 
+FECHAPARENTESES      : 
+FOR                  : 
+FROM                 : 
+FUNCTION             : 
+GET                  : 75
+IDENTIFICADOR        : 2 3 8 13 14 15 16 17 41 62 65 71 72 73 74 75 76
+IF                   : 20 21 22 23 23 36 37 38 39 39
+IGUAL                : 14 58 62
+IGUALVALORETIPO      : 59
+IGUALVALOROUTIPO     : 60
+IMPORT               : 2 3
+IN                   : 
+INCREMENTO           : 
+INSTANCEOF           : 
+IS                   : 
+LET                  : 73
+MAIOR                : 55
+MAIORIGUAL           : 53
+MENOR                : 54
+MENORIGUAL           : 52
+MENOS                : 50
+MODULE               : 
+MULTIPLICACAO        : 
+NAMESPACE            : 76
+NEGACAO              : 
+NEW                  : 
+NULL                 : 
+NUMBER               : 
+NUMERO               : 64
+OF                   : 
+OU                   : 
+PACKAGE              : 
+PONTOVIRGULA         : 
+PORCENTO             : 
+PUBLIC               : 
+RETURN               : 68
+SET                  : 74
+SOMA                 : 
+STATIC               : 
+STRING               : 
+STRING_ASPAS_DUPLAS  : 2
+STRING_ASPAS_SIMPLES : 3 66
+THIS                 : 72
+TIU                  : 
+TRUE                 : 
+TYPE                 : 
+TYPEOF               : 
+VAR                  : 71
+VOID                 : 
+WHILE                : 69
+error                : 
 
-definicao_funcao -> ID ABREPAREN argumentos FECHAPAREN ABRECHAVE comandos FECHA_CHAVE 
+Nonterminals, with rules where they appear
 
-argumentos ->  ID DOISPONTOS TIPO | ID DOISPONTOS TIPO VIRGULA argumentos 
-
-comandos -> comando | comando comandos
-
-comando -> IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES comando ELSE ABRECHAVES comando FECHACHAVES comando
-	       | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comandos 
-	       | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE ABRECHAVES  comando FECHACHAVES
-	       | IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando 
-	       | atribuicao | comando_for | comando_while | chamada_de_funcao | comando_break | comando_return | comando_namespace
-	       | comando_var | comando_let | comando_this | comando_get | comando_set
-
-comando_2 -> IF ABREPARENTESE expressao FECHARPARENTESE comandos
-		| IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
-		| IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comando_2 
-		| IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando_2 
-
-comando_for ->	for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES| 
-		for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
-
-
-chamada_de_funcao -> ID ABREPARENTESE argumentos FECHARPARENTESE 
-
-
-expressao -> expressao1
-
-expressao1 -> expressao decremento expressao2 | expressao incremento expressao2 | expressao2
-
-expressao2 -> expressao2 VEZES expressao3 | expressao2 DIVISÃO expressao3 | expressao3
-
-expressao3 -> expressao3 MAIS expressao4 | expressao3 MENOS expressao4 | expressao4 
-
-expressao4 -> expressao4 MENORIGUAL expressao5 | expressao4 MAIORIGUAL expressao5 | expressao4 MENOR expressao5 | expressao4 MAIOR expressao5 | expressao5 
-
-expressao5 ->  expressao5 DIFERENTE expressao6 | expressao5 IGUAL expressao6 | expressao5 IGUALVALORETIPO expressao6 | expressao5 IGUALVALOROUTIPO expressao6 | expressao6 
-
-expressao6 ->  ID IGUAL expressao7 | expressao7
-
-expressao7 ->   NUMERO | ID | STRING_ASPAS_SIMPLES | STRING_ASPAS_DUPLA
-
-comando_return -> RETURN expressao
-
-comando_while -> WHILE ABREPARENTESE expressao FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
-
-comando_break -> BREAK
-
-comando_var -> VAR ID
-
-comando_this -> THIS PONTO ID
-
-chamada_de_funcao -> ID ABREPARENTESE argumentos FECHARPARENTESE  
-
-comando_let -> LET ID
-
-comando_set -> SET ID ABREPARENTESE argumentos  FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
-
-comando_get -> GET ID ABREPARENTESE FECHARPARENTESE  ABRECHAVES comando FECHACHAVES
-
-comando_namespace -> NAMESPACE ID ABRECHAVES comando FECHACHAVES
-
-
-
+ABREPAREN            : 15
+ABREPARENTESE        : 20 21 22 23 36 37 38 39 40 41 69 74 75
+ATRIBUICAO           : 40
+DOISPONTOS           : 13 14 16 17
+FECHAPAREN           : 15
+FECHARPARENTESE      : 20 21 22 23 36 37 38 39 40 41 69 74 75
+FECHA_CHAVE          : 15
+MAIS                 : 49
+PONTO                : 72
+PONTOEVIRGULA        : 40 40
+PONTO_VIRGULA        : 13 14
+STRING_ASPAS_DUPLA   : 67
+TIPO                 : 16 17 40
+VEZES                : 46
+VIRGULA              : 17
+argumentos           : 15 17 41 74
+atribuicao           : 24
+chamada_de_funcao    : 27
+comando              : 5 7 18 19 20 20 20 20 21 22 22 23 23 38 39 69 74 75 76
+comando2             : 38 39
+comando_break        : 28
+comando_for          : 25
+comando_get          : 34
+comando_let          : 32
+comando_namespace    : 30
+comando_return       : 29
+comando_set          : 35
+comando_this         : 33
+comando_var          : 31
+comando_while        : 26
+comandos             : 15 19 21 36 37 40
+corpo                : 1 6 7
+corpo_classe         : 8 11 12
+decremento           : 43
+definicao_classe     : 4 6
+definicao_funcao     : 10 12
+definicao_variavel   : 9 11
+expressao            : 14 20 21 22 23 36 37 38 39 40 40 43 44 68 69
+expressao1           : 42
+expressao2           : 43 44 45 46 47
+expressao3           : 46 47 48 49 50
+expressao4           : 49 50 51 52 53 54 55
+expressao5           : 52 53 54 55 56 57 58 59 60
+expressao6           : 57 58 59 60 61
+expressao7           : 62 63
+for                  : 40
+incremento           : 44
+programa             : 0
+secao_importacao     : 1
+tipo                 : 13 14
 

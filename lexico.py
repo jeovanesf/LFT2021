@@ -39,6 +39,8 @@ tokens = [
    'NEGACAO',
    'ECOMERCIAL',
    'IDENTIFICADOR',
+   'STRING_ASPAS_SIMPLES',
+   'STRING_ASPAS_DUPLAS'
 ]
 
 # EXPRESÃO REGULAR PARA SIMBOLOS
@@ -155,15 +157,14 @@ def t_error(t):
 
 
 #Testando
-data = '''   3 + 3   tototo 10 /* 10 */ in  //teste'''
 
-# Give the lexer some input
-lexer = lex.lex()
-lexer.input(data)
+# # Give the lexer some input
+# lexer = lex.lex()
+# lexer.input(data)
 
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break  # No more input
-    print(tok)
+# # Tokenize
+# while True:
+#     tok = lexer.token()
+#     if not tok:
+#         break  # No more input
+#     print(tok)

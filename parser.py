@@ -6,8 +6,7 @@ def p_typescriptProgram(p) :
   pass
 
 def p_secao_importacao(p) :
-  ''' secao_importacao : IMPORT ABRECHAVES IDENTIFICADOR FECHACHAVES STRING_ASPAS_DUPLAS
-                       | IMPORT ABRECHAVES IDENTIFICADOR FECHACHAVES STRING_ASPAS_SIMPLES '''
+  ''' secao_importacao : IMPORT ABRECHAVES IDENTIFICADOR FECHACHAVES STRING'''
   pass
 
 def p_corpo(p) :
@@ -29,30 +28,36 @@ def p_corpo_classe(p) :
   pass
 
 def p_definicao_variavel(p) :
-  ''' definicao_variavel : IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA
-                         | IDENTIFICADOR DOISPONTOS tipo PONTO_VIRGULA IGUAL expressao '''
+  ''' definicao_variavel : IDENTIFICADOR DOISPONTOS tipo PONTOVIRGULA
+                         | IDENTIFICADOR DOISPONTOS tipo PONTOVIRGULA IGUAL expressao '''
   pass
 
 def p_definicao_funcao(p) :
-  ''' definicao_funcao : IDENTIFICADOR ABREPAREN argumentos FECHAPAREN ABRECHAVES comandos FECHA_CHAVE '''
+  ''' definicao_funcao : IDENTIFICADOR ABREPARENTESES argumentos FECHAPARENTESES ABRECHAVES comandos FECHACHAVES '''
   pass
 
 def p_argumentos(p) :
-  ''' argumentos : IDENTIFICADOR DOISPONTOS TIPO 
-                 | IDENTIFICADOR DOISPONTOS TIPO VIRGULA argumentos  '''
+  ''' argumentos : IDENTIFICADOR DOISPONTOS tipo 
+                 | IDENTIFICADOR DOISPONTOS tipo VIRGULA argumentos  '''
   pass
 
+def p_tipo(p):
+    '''tipo : NUMBER
+            | STRING
+            | BOOLEAN'''
+    pass
+  
 def p_comandos(p) :
   ''' comandos : comando
                | comando comandos '''
   pass
 
 def p_comando(p) :
-  ''' comando : IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES comando ELSE ABRECHAVES comando FECHACHAVES comando
-              | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comandos
-              | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE ABRECHAVES  comando FECHACHAVES
-              | IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando
-              | atribuicao 
+  ''' comando : IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES comando FECHACHAVES comando ELSE ABRECHAVES comando FECHACHAVES comando
+              | IF ABREPARENTESES expressao FECHAPARENTESES comando ELSE comandos
+              | IF ABREPARENTESES expressao FECHAPARENTESES comando ELSE ABRECHAVES  comando FECHACHAVES
+              | IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES comando FECHACHAVES IF ELSE comando
+              | atribuicao
               | comando_for 
               | comando_while 
               | chamada_de_funcao 
@@ -64,73 +69,84 @@ def p_comando(p) :
               | comando_this 
               | comando_get 
               | comando_set 
-              | FOR ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comando1 FECHACHAVES'''
+              | FOR ABREPARENTESES tipo atribuicao PONTOVIRGULA expressao PONTOVIRGULA expressao FECHAPARENTESES ABRECHAVES comando2 FECHACHAVES'''
   pass
 
 def p_comando2(p) : 
-  ''' comando2 : IF ABREPARENTESE expressao FECHARPARENTESE comandos
-               | IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES
-               | IF ABREPARENTESE expressao FECHARPARENTESE comando ELSE comando2 
-               | IF ABREPARENTESE expressao FECHARPARENTESE ABRECHAVES comando FECHACHAVES IF ELSE comando2 
-               | FOR ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comando2 FECHACHAVES'''
+  ''' comando2 : IF ABREPARENTESES expressao FECHAPARENTESES comandos
+               | IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES comandos FECHACHAVES
+               | IF ABREPARENTESES expressao FECHAPARENTESES comando ELSE comando2 
+               | IF ABREPARENTESES expressao FECHAPARENTESES ABRECHAVES comando FECHACHAVES IF ELSE comando2
+               | comando_for'''
   pass
 
 def p_comando_for(p) :
-  ''' comando_for : for ABREPARENTESE TIPO ATRIBUICAO PONTOEVIRGULA expressao PONTOEVIRGULA expressao FECHARPARENTESE ABRECHAVES comandos FECHACHAVES'''
+  ''' comando_for : FOR ABREPARENTESES expressao PONTOVIRGULA expressao PONTOVIRGULA expressao FECHAPARENTESES ABRECHAVES comandos FECHACHAVES'''
+  pass
+
+def p_atribuicao(p) :
+  '''atribuicao : tipo IDENTIFICADOR IGUAL expressao'''
   pass
 
 def p_chamada_de_funcao(p) :
-  ''' chamada_de_funcao : IDENTIFICADOR ABREPARENTESE argumentos FECHARPARENTESE '''
+  ''' chamada_de_funcao : IDENTIFICADOR ABREPARENTESES argumentos FECHAPARENTESES '''
   pass
 
 def p_expressao(p) :
   ''' expressao : expressao1 '''
   pass
 
-def p_expressao1(p) :
-  ''' expressao1 : expressao decremento expressao2
-                 | expressao incremento expressao2 
-                 | expressao2 '''
-  pass
-
-def p_expressao2(p) :
-  ''' expressao2 : expressao2 VEZES expressao3 
-                 | expressao2 DIVISAO expressao3 
-                 | expressao3 '''
-  pass
-
-def p_expressao3(p) :
-  ''' expressao3 : expressao3 MAIS expressao4 
-                 | expressao3 MENOS expressao4 
-                 | expressao4  '''
-  pass
-
-def p_expressao4(p) :
-  ''' expressao4 : expressao4 MENORIGUAL expressao5 
-                 | expressao4 MAIORIGUAL expressao5 
-                 | expressao4 MENOR expressao5 
-                 | expressao4 MAIOR expressao5 
-                 | expressao5 '''
-  pass
-
-def p_expressao5(p) :
-  ''' expressao5 : expressao5 DIFERENTE expressao6 
-                 | expressao5 IGUAL expressao6 
-                 | expressao5 IGUALVALORETIPO expressao6 
-                 | expressao5 IGUALVALOROUTIPO expressao6 
-                 | expressao6 '''
-  pass
-
 def p_expressao6(p) :
-  ''' expressao6 : IDENTIFICADOR IGUAL expressao7 
+  ''' expressao6 : expressao6 decremento expressao7
+                 | expressao6 incremento expressao7 
                  | expressao7 '''
   pass
 
+def p_expressao5(p) :
+  ''' expressao5 : expressao5 MULTIPLICACAO expressao6 
+                 | expressao5 DIVISAO expressao6 
+                 | expressao6 '''
+  pass
+
+def p_expressao4(p) :
+  ''' expressao4 : expressao4 SOMA expressao5
+                 | expressao4 MENOS expressao5 
+                 | expressao5  '''
+  pass
+
+def p_expressao3(p) :
+  ''' expressao3 : expressao3 MENORIGUAL expressao4 
+                 | expressao3 MAIORIGUAL expressao4 
+                 | expressao3 MENOR expressao4 
+                 | expressao3 MAIOR expressao4 
+                 | expressao4 '''
+  pass
+
+def p_expressao2(p) :
+  ''' expressao2 : expressao2 DIFERENTE expressao3 
+                 | expressao2 IGUAL expressao3 
+                 | expressao2 IGUALVALORETIPO expressao3 
+                 | expressao2 IGUALVALOROUTIPO expressao3 
+                 | expressao3 '''
+  pass
+
+def p_expressao1(p) :
+  ''' expressao1 : IDENTIFICADOR IGUAL expressao2 
+                 | expressao2 '''
+  pass
+
 def p_expressao7(p) :
-  ''' expressao7 : NUMERO 
+  ''' expressao7 : NUMBER 
                  | IDENTIFICADOR  
-                 | STRING_ASPAS_SIMPLES 
-                 | STRING_ASPAS_DUPLA '''
+                 | STRING  '''
+  pass
+
+def p_incremento(p) :
+  '''incremento : expressao INCREMENTO'''
+  pass
+
+def p_decremento(p) :
+  '''decremento : expressao DECREMENTO'''
   pass
 
 def p_comando_return(p) :
@@ -138,7 +154,7 @@ def p_comando_return(p) :
   pass
 
 def p_comando_while(p) :
-  ''' comando_while : WHILE ABREPARENTESE expressao FECHARPARENTESE  ABRECHAVES comando FECHACHAVES '''
+  ''' comando_while : WHILE ABREPARENTESES expressao FECHAPARENTESES  ABRECHAVES comando FECHACHAVES '''
   pass
 
 def p_comando_break(p) :
@@ -158,11 +174,11 @@ def p_comando_let(p) :
   pass
 
 def p_comando_set(p) :
-  ''' comando_set : SET IDENTIFICADOR ABREPARENTESE argumentos  FECHARPARENTESE  ABRECHAVES comando FECHACHAVES '''
+  ''' comando_set : SET IDENTIFICADOR ABREPARENTESES argumentos  FECHAPARENTESES  ABRECHAVES comando FECHACHAVES '''
   pass
 
 def p_comando_get(p) :
-  ''' comando_get : GET IDENTIFICADOR ABREPARENTESE FECHARPARENTESE  ABRECHAVES comando FECHACHAVES '''
+  ''' comando_get : GET IDENTIFICADOR ABREPARENTESES FECHAPARENTESES  ABRECHAVES comando FECHACHAVES '''
   pass
 
 def p_comando_namespace(p) :

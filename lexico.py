@@ -28,7 +28,6 @@ tokens = [
    'PONTOVIRGULA',
    'COMERCIAL',
    'COMPARACAO',
-   'NUMERO',
    'EXPONENCIACAO',
    'INCREMENTO',
    'DECREMENTO',
@@ -39,8 +38,9 @@ tokens = [
    'NEGACAO',
    'ECOMERCIAL',
    'IDENTIFICADOR',
-   'STRING_ASPAS_SIMPLES',
-   'STRING_ASPAS_DUPLAS'
+   'DOISPONTOS',
+   'VIRGULA',
+   'PONTO'
 ]
 
 # EXPRESÃO REGULAR PARA SIMBOLOS
@@ -75,6 +75,9 @@ t_IGUALVALOROUTIPO = r'\!\=\='
 t_OU = r'\|\|'
 t_NEGACAO = r'\!'
 t_ECOMERCIAL = r'\&'
+t_DOISPONTOS = r'\:'
+t_VIRGULA = r'\,'
+t_PONTO = r'\.'
 
 #PALAVRAS RESERVADAS
 palavras_reservadas = {
@@ -95,13 +98,13 @@ palavras_reservadas = {
     'void' : 'VOID',
     'while' : 'WHILE',
     'let' : 'LET',
+    'string': 'STRING',
     'package' : 'PACKAGE',
     'public' : 'PUBLIC',
     'static' : 'STATIC',
     'typeof' : 'TYPEOF',
     'boolean' : 'BOOLEAN',
     'number' : 'NUMBER',
-    'string' : 'STRING',
     'construtor' : 'CONSTRUTOR',
     'from' : 'FROM',
     'get' : 'GET',
@@ -117,9 +120,8 @@ palavras_reservadas = {
 tokens = tokens + list(palavras_reservadas.values())
 
 #DEFINIÇAO DE NUMERO
-def t_NUMERO(t):
-    r'\d+(\.\d+)?'
-    ##FAZER CONDIÇÃO PARA Nº INT, FLOAT ....
+def t_NUMBER(t):
+    r'\d+'
     t.value = int(t.value)
     return t
 
@@ -133,13 +135,9 @@ def t_BRANCO(t):
     r'[ \t]'
     pass
 
-#DEFINIÇÃO DE STRING ASPAS SIMPLE
-def t_STRING_ASPAS_SIMPLES(t):
-    r'\'.*\''
-    return t
 
 #DEFINIÇÃO DE STRING ASPAS DUPLAS
-def t_STRING_ASPAS_DUPLAS(t):
+def t_STRING(t):
     r'\".*\"'
     return t
 
@@ -151,6 +149,8 @@ def t_IDENTIFICADOR(t):
 
 def t_error(t):
     print(str(t.value) + 'Invalid token')
+
+
 
 
 #INDETAÇÃO
